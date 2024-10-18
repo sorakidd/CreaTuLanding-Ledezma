@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { getProducts } from "../Products/Products";
+import { getProducts, getElementsByCategory } from "../Products/Products";
 import ItemList from "../ItemList/ItemList";
 
 import { useParams } from "react-router-dom";
@@ -9,7 +9,7 @@ const ItemListContainer = ({ greeting }) => {
   const { categoryId } = useParams();
 
   useEffect(() => {
-    const asyncFunc = categoryId ? getProductsByCategory : getProducts;
+    const asyncFunc = categoryId ? getElementsByCategory : getProducts;
 
     asyncFunc(categoryId)
       .then((response) => {

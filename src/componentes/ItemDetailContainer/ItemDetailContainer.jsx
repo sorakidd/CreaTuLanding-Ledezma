@@ -1,6 +1,6 @@
 import './ItemDetailContainer.css'
 import { useState, useEffect } from 'react' 
-import { getProductsById } from "../Products/Products"
+import { getProductsById, getElementsByCategory } from "../Products/Products"
 import ItemDetail from '../ItemDetail/ItemDetail'
 import { useParams } from 'react-router-dom'
 
@@ -9,7 +9,7 @@ const ItemDetailContainer = () => {
     const { itemId } = useParams();
   
     useEffect(() => {
-      getProductById(itemId)
+      getProductsById(itemId)
         .then((response) => {
           setProduct(response);
         })
@@ -24,5 +24,26 @@ const ItemDetailContainer = () => {
       </div>
     );
   };
+
+  const CategoryProductsContainer = () => {
+  const [products, setProducts] = useState([]);
+  const { category } = useParams();
+
+  useEffect(() => {
+    getElementsByCategory(category)
+      .then((response) => {
+        setProducts(response);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, [category]);
+
+  return (
+    <div className="CategoryProductsContainer">
+      <ProductList products={products} />
+    </div>
+  );
+};
 
 export default ItemDetailContainer;
