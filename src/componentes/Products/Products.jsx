@@ -66,4 +66,12 @@ const products = [
     });
   };
 
+  export const getElementsByCategory = (category) => {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve(products.filter((prod) => prod.category === category));
+      }, 100);
+    });
+  };
+
   
